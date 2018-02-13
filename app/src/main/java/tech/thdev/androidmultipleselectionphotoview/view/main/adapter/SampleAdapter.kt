@@ -12,7 +12,10 @@ import tech.thdev.androidmultipleselectionphotoview.view.main.adapter.holder.Ima
  */
 class SampleAdapter(private val context: Context) : RecyclerView.Adapter<BaseViewHolder<*>>() {
 
+    var selectLimitCount = -1
+
     lateinit var onClickItem: (position: Int) -> Unit
+    lateinit var onSelectedLimit: (selectLimitCount: Int) -> Unit
 
     val itemList = mutableListOf<PhotoItem>()
 
@@ -30,9 +33,43 @@ class SampleAdapter(private val context: Context) : RecyclerView.Adapter<BaseVie
 
     fun updateSelectItem(position: Int) {
         itemList[position].let {
-            it.isCheck = !it.isCheck
-            if (it.isCheck) {
-                selectList.add(it)
+            if (selectLimitCount > -1) {
+                if (it.isCheck) {
+                    // unchecked
+                    selectItem(it)
+                } else {
+                    if (selectList.size < selectLimitCount) {
+                        selectItem(it)
+                    } else {
+                        onSelectedLimit(selectLimitCount)
+                    }
+                }
+            } else {
+                selectItem(it)
+            }
+        }
+    }
+
+    private fun selectItem(item: PhotoItem) {
+        item.isCheck = !item.isCheck
+        if (item.isCheck) {
+            item.number = selectList.size + 1
+            selectList.add(item)
+        } else {
+            val number = item.number
+            item.number = -1
+            selectList.remove(item)
+
+            updateNumber(number)
+        }
+    }
+
+    private fun updateNumber(defaultNumber: Int) {
+        selectList.forEach {
+            if (it.number > defaultNumber) {
+                it.number = it.number - 1
+
+                notifyItemChanged(itemList.indexOf(it))
             }
         }
     }

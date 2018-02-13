@@ -24,5 +24,9 @@ class ImageViewHolder(context: Context, parent: ViewGroup?,
     override fun onViewCreated(item: PhotoItem?) {
         Glide.with(containerView).load(item?.imagePath).into(img_view)
         img_check.visibility = View.VISIBLE.takeIf { item?.isCheck == true } ?: View.GONE
+        tv_selected_number.run {
+            text = item?.number.toString()
+            visibility = View.VISIBLE.takeIf { item?.isCheck == true } ?: View.GONE
+        }
     }
 }

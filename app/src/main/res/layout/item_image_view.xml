@@ -9,8 +9,8 @@
         android:id="@+id/img_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:scaleType="centerCrop"
         android:layout_margin="5dp"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,10 +23,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
+        android:layout_marginEnd="5dp"
         android:layout_marginRight="5dp"
         android:src="@drawable/ic_check_red_24dp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/img_view"
         app:layout_constraintEnd_toEndOf="@+id/img_view"
         tools:visibility="visible" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/tv_selected_number"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="#FFe52525"
+        android:gravity="center"
+        android:textColor="#fff"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/img_view"
+        app:layout_constraintTop_toTopOf="@id/img_view"
+        tools:text="1" />
 </android.support.constraint.ConstraintLayout>

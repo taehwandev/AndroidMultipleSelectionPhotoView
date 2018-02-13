@@ -3,6 +3,7 @@ package tech.thdev.androidmultipleselectionphotoview.view.main
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
+import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_sample_main.*
 import tech.thdev.androidmultipleselectionphotoview.R
 import tech.thdev.androidmultipleselectionphotoview.data.PhotoItem
@@ -39,14 +40,22 @@ class SampleMainActivity : AppCompatActivity() {
             adapter = sampleAdapter
         }
 
-        (0..20).forEach {
-            sampleAdapter.itemList.add(PhotoItem(imageList[(0..9).random()]))
-        }
-        sampleAdapter.notifyDataSetChanged()
+        sampleAdapter.run {
+            (0..20).forEach {
+                itemList.add(PhotoItem(imageList[(0..9).random()]))
+            }
+            notifyDataSetChanged()
 
-        sampleAdapter.onClickItem = {
-            sampleAdapter.updateSelectItem(it)
-            sampleAdapter.notifyItemChanged(it)
+            selectLimitCount = 3
+
+            onClickItem = {
+                sampleAdapter.updateSelectItem(it)
+                sampleAdapter.notifyItemChanged(it)
+            }
+
+            onSelectedLimit = {
+                Toast.makeText(this@SampleMainActivity, "Select limit item!!! $it", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
