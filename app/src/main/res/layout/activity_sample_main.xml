@@ -1,50 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context=".view.main.SampleMainActivity">
+    android:fitsSystemWindows="true">
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/appbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/appbar_padding_top"
-        android:theme="@style/AppTheme.AppBarOverlay">
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/view_container"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fitsSystemWindows="true"
+        app:layout_constraintBottom_toTopOf="@+id/view_bottom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:context=".view.main.SampleMainActivity">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:layout_weight="1"
-            android:background="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:popupTheme="@style/AppTheme.PopupOverlay"
-            app:title="@string/app_name">
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            android:paddingTop="@dimen/appbar_padding_top"
+            android:theme="@style/AppTheme.AppBarOverlay">
 
-            <Spinner
-                android:id="@+id/spinner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:popupTheme="@style/AppTheme.PopupOverlay" />
-        </android.support.v7.widget.Toolbar>
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_weight="1"
+                android:background="?attr/colorPrimary"
+                android:fitsSystemWindows="true"
+                app:layout_scrollFlags="scroll|enterAlways"
+                app:popupTheme="@style/AppTheme.PopupOverlay"
+                app:title="@string/app_name">
 
-    </android.support.design.widget.AppBarLayout>
+                <Spinner
+                    android:id="@+id/spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:popupTheme="@style/AppTheme.PopupOverlay" />
+            </android.support.v7.widget.Toolbar>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:listitem="@layout/item_image_view" />
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            tools:listitem="@layout/item_image_view" />
+
+    </android.support.design.widget.CoordinatorLayout>
 
     <android.support.constraint.ConstraintLayout
-        android:layout_width="match_parent"
+        android:id="@+id/view_bottom"
+        android:layout_width="0dp"
         android:layout_height="60dp"
-        android:layout_gravity="bottom"
-        android:background="#fff">
+        android:background="#fff"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_container">
 
         <TextView
             android:id="@+id/tv_selected_count"
@@ -63,13 +81,13 @@
             android:id="@+id/tv_split"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/label_split"
             android:textColor="#666"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/tv_total_count"
             app:layout_constraintStart_toEndOf="@+id/tv_selected_count"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text=" / " />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_total_count"
@@ -83,4 +101,4 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="3" />
     </android.support.constraint.ConstraintLayout>
-</android.support.design.widget.CoordinatorLayout>
+</android.support.constraint.ConstraintLayout>

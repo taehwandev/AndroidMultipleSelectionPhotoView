@@ -41,7 +41,7 @@ class SampleMainActivity : AppCompatActivity() {
         }
 
         sampleAdapter.run {
-            (0..20).forEach {
+            (0..30).forEach {
                 itemList.add(PhotoItem(imageList[(0..9).random()]))
             }
             notifyDataSetChanged()
@@ -49,14 +49,19 @@ class SampleMainActivity : AppCompatActivity() {
             selectLimitCount = 3
 
             onClickItem = {
-                sampleAdapter.updateSelectItem(it)
-                sampleAdapter.notifyItemChanged(it)
+                if (sampleAdapter.updateSelectItem(it)) {
+                    sampleAdapter.notifyItemChanged(it)
+                    tv_selected_count.text = sampleAdapter.selectList.size.toString()
+                }
             }
 
             onSelectedLimit = {
                 Toast.makeText(this@SampleMainActivity, "Select limit item!!! $it", Toast.LENGTH_SHORT).show()
             }
         }
+
+        tv_total_count.text = sampleAdapter.selectLimitCount.toString()
+        tv_selected_count.text = sampleAdapter.selectList.size.toString()
     }
 
     fun ClosedRange<Int>.random() = Random().nextInt(endInclusive - start) + 1

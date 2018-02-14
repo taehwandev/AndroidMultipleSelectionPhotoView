@@ -31,23 +31,28 @@ class SampleAdapter(private val context: Context) : RecyclerView.Adapter<BaseVie
         holder?.onBindViewHolder(itemList[position])
     }
 
-    fun updateSelectItem(position: Int) {
+    fun updateSelectItem(position: Int): Boolean {
+        var isChange = false
         itemList[position].let {
             if (selectLimitCount > -1) {
                 if (it.isCheck) {
                     // unchecked
                     selectItem(it)
+                    isChange = true
                 } else {
                     if (selectList.size < selectLimitCount) {
                         selectItem(it)
+                        isChange = true
                     } else {
                         onSelectedLimit(selectLimitCount)
                     }
                 }
             } else {
                 selectItem(it)
+                isChange = true
             }
         }
+        return isChange
     }
 
     private fun selectItem(item: PhotoItem) {
