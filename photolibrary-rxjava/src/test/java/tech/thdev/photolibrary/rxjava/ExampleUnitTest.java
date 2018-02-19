@@ -1,4 +1,4 @@
-package tech.thdev.photolibrary;
+package tech.thdev.photolibrary.rxjava;
 
 import org.junit.Test;
 

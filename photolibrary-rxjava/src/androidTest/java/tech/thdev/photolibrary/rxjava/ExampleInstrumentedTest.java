@@ -1,4 +1,4 @@
-package tech.thdev.photolibrary;
+package tech.thdev.photolibrary.rxjava;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
