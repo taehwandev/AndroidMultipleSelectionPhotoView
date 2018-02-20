@@ -1,1 +1,1 @@
-include ':app', ':photolibrary-rxjava'
+include ':app', ':photolibrary-rxjava', ':core'
