@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.activity_photo.*
 import kotlinx.android.synthetic.main.fragment_main.view.*
 import kotlinx.android.synthetic.main.list_item.view.*
 
-class MainActivity : AppCompatActivity() {
+class TempActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

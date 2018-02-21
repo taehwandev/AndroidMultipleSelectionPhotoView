@@ -5,6 +5,4 @@ package tech.thdev.photolibrary.data
  */
 sealed class AdapterInfo
 
-data class ViewHolderInfo(val viewType: Int,
-                          var isSelected: Boolean = false,
-                          var number: Int = -1) : AdapterInfo()
+data class ViewHolderInfo(val viewType: Int) : AdapterInfo()

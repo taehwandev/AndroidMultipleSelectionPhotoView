@@ -5,4 +5,6 @@ package tech.thdev.photolibrary.data.source
  */
 data class PhotoItem(val id: Long,
                      val name: String?,
-                     val filePath: String?)
+                     val filePath: String?,
+                     var isSelected: Boolean = false,
+                     var number: Int = -1)

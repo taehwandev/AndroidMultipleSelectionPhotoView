@@ -10,7 +10,7 @@ import tech.thdev.photolibrary.data.source.image.ImageLoaderManagerRepository
  *
  * RxJava mapping.
  */
-object ImageLoaderManagerRxJavaRepository : ImageLoaderManagerRxJavaDataSorcue {
+object ImageLoaderManagerRxJavaRepository : ImageLoaderManagerRxJavaDataSource {
 
     private val imageLoadManager: ImageLoaderManagerDataSource by lazy {
         ImageLoaderManagerRepository()

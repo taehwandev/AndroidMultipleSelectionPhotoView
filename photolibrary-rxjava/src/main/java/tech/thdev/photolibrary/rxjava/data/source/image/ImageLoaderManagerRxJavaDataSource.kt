@@ -8,7 +8,7 @@ import tech.thdev.photolibrary.data.source.PhotoItem
 /**
  * Created by Taehwan on 20/02/2018.
  */
-interface ImageLoaderManagerRxJavaDataSorcue {
+interface ImageLoaderManagerRxJavaDataSource {
 
     fun loadImageByFolder(context: Context): Observable<List<FolderItem>>
 

@@ -10,14 +10,14 @@ import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
 import tech.thdev.photolibrary.base.ImageLoaderNavigator
 import tech.thdev.photolibrary.base.adapter.control.ImageLoaderAdapterNavigator
-import tech.thdev.photolibrary.rxjava.data.source.image.ImageLoaderManagerRxJavaDataSorcue
+import tech.thdev.photolibrary.rxjava.data.source.image.ImageLoaderManagerRxJavaDataSource
 
 /**
  * Created by Taehwan on 20/02/2018.
  */
 class ImageLoaderRxJavaViewModel<out ADAPTER_VIEW_MODE : ImageLoaderAdapterNavigator>(
         application: Application,
-        private val repository: ImageLoaderManagerRxJavaDataSorcue,
+        private val repository: ImageLoaderManagerRxJavaDataSource,
         private val adapterViewModel: ADAPTER_VIEW_MODE) : AndroidViewModel(application), ImageLoaderNavigator, LifecycleObserver {
 
     override lateinit var showEmptyImageList: () -> Unit
@@ -38,8 +38,8 @@ class ImageLoaderRxJavaViewModel<out ADAPTER_VIEW_MODE : ImageLoaderAdapterNavig
                 }
                 .concatMapIterable { it }
                 .observeOn(AndroidSchedulers.mainThread())
-                .map {
-                    adapterViewModel.addItem(it).takeIf { it > -1 }?.let {
+                .map { item ->
+                    adapterViewModel.addItem(item).takeIf { it > -1 }?.let {
                         adapterViewModel.notifyItemChanged(it)
                     }
                 }

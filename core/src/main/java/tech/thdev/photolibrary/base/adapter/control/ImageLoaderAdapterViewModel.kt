@@ -55,24 +55,26 @@ class ImageLoaderAdapterViewModel(override val context: Context?,
     }
 
     override fun onUpdateSelectItem(position: Int) {
-        itemList[position].let {
-            if (selectLimitCount > -1) {
-                if (isChecked(it.second)) {
-                    // unchecked
-                    selectItem(it, position)
-
-                } else {
-                    // check
-                    if (selectList.size < selectLimitCount) {
+        synchronized(selectList) {
+            itemList[position].let {
+                if (selectLimitCount > -1) {
+                    if (it.first.isSelected) {
+                        // unchecked
                         selectItem(it, position)
 
                     } else {
-                        showAlertSelectedLimit(selectLimitCount)
-                    }
-                }
+                        // check
+                        if (selectList.size < selectLimitCount) {
+                            selectItem(it, position)
 
-            } else {
-                selectItem(it, position)
+                        } else {
+                            showAlertSelectedLimit(selectLimitCount)
+                        }
+                    }
+
+                } else {
+                    selectItem(it, position)
+                }
             }
         }
     }
@@ -82,29 +84,22 @@ class ImageLoaderAdapterViewModel(override val context: Context?,
         notifyItemChanged(position)
     }
 
-    private fun isChecked(adapterInfo: AdapterInfo) =
-            when (adapterInfo) {
-                is ViewHolderInfo -> adapterInfo.isSelected
-            }
-
-    private fun AdapterInfo.updateChecked() {
-        when (this) {
-            is ViewHolderInfo -> this.isSelected = !this.isSelected
-        }
+    private fun Pair<PhotoItem, AdapterInfo>.updateChecked() {
+        this.first.isSelected = !this.first.isSelected
     }
 
-    private fun AdapterInfo.updateNumber(number: Int) {
-        (this as ViewHolderInfo).number = number
+    private fun Pair<PhotoItem, AdapterInfo>.updateNumber(number: Int) {
+        this.first.number = number
     }
 
     private fun selectItem(item: Pair<PhotoItem, AdapterInfo>) {
-        item.second.updateChecked()
-        if (isChecked(item.second)) {
-            item.second.updateNumber(selectList.size + 1)
+        item.updateChecked()
+        if (item.first.isSelected) {
+            item.updateNumber(selectList.size + 1)
             selectList.add(item)
         } else {
-            val number = (item.second as ViewHolderInfo).number
-            item.second.updateNumber(-1)
+            val number = item.first.number
+            item.updateNumber(-1)
             selectList.remove(item)
 
             updateNumber(number)
@@ -113,11 +108,9 @@ class ImageLoaderAdapterViewModel(override val context: Context?,
 
     private fun updateNumber(defaultNumber: Int) {
         selectList.forEach { pair ->
-            (pair.second as ViewHolderInfo).let {
-                if (it.number > defaultNumber) {
-                    updateNumber(it.number - 1)
-                    notifyItemChanged(itemList.indexOf(pair))
-                }
+            if (pair.first.number > defaultNumber) {
+                pair.updateNumber(pair.first.number - 1)
+                notifyItemChanged(itemList.indexOf(pair))
             }
         }
     }
